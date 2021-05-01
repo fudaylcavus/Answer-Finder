@@ -119,9 +119,12 @@ def run_copy_system(driver, questions, priority, min_match_rate, check_every_que
 
 def read_questions(file):
     questions = []
-    with open(file, "r") as f:
-        for line in f.readlines():
-            questions.append(line.strip())
+    try:
+        with open(file, "r") as f:
+            for line in f.readlines():
+                questions.append(line.strip())
+    except:
+        print("something went wrong with the file please read README.md first")
     return questions
 
 
@@ -149,9 +152,9 @@ def setup():
         next_arg = str(sys.argv[i+1]).strip()
 
         if current_arg == "-sw":
-            if next_arg == "True":
+            if next_arg.lower() == "true":
                 same_website_search = True
-            elif next_arg == "False":
+            elif next_arg.lower() == "false":
                 same_website_search = False
             else:
                 wrong_arguments = True
