@@ -28,6 +28,8 @@ def get_google_results(driver, priority):
 def find_answer_in_quizlet(driver, questions, min_match_rate, check_every_question):
     # quizlet not loading content before scroll
     driver.execute_script("window.scrollBy(0, document.body.clientHeight/2.3)")
+
+    #Quizlet's navbar was blocking the content in screenshot
     driver.execute_script(
         'document.getElementById("TopNavigationReactTarget").style.display = "none"'
     )
@@ -35,8 +37,10 @@ def find_answer_in_quizlet(driver, questions, min_match_rate, check_every_questi
         'document.querySelector(\'div[class*="SetPageStickyHeader"]\').style.display = "none"'
     )
     time.sleep(.4)
+
     quizletCards = driver.find_elements_by_css_selector(
         'div[aria-label="Term"]')
+
     return find_and_save(quizletCards, questions, min_match_rate, check_every_question)
 
 
@@ -144,6 +148,7 @@ def setup():
     if ADBLOCK_PATH:
         chr_profile.add_argument(f"load-extension={ADBLOCK_PATH}")
 
+    print(sys.argv)
     for i in range(len(sys.argv)):
         if i + 1 >= len(sys.argv):
             break
@@ -183,6 +188,7 @@ def setup():
         print("One or more arguments are given wrong! Please check the usage in README.md")
         exit()
 
+    print(questions, same_website_search, question_file, minimum_match_rate)
     if question_file:
         questions = read_questions(question_file)
     else:
