@@ -1,5 +1,7 @@
 # Answer-Finder
 
+Used: Python | Selenium
+
 ## Reason why I built this:
 About two or more of my teachers were asking from websites,
 that we can find the answers with quick search. Then one of my 
